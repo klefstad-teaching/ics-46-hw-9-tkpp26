@@ -12,7 +12,7 @@ vector<int> dijkstra_shortest_path(const Graph& G, int source, vector<int>& prev
     previous[source] = -1; // acts as a stopping condition when calling extract_shortest_path or -1?
 
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> minHeap; // pair<vertex, weight>
-    minHeap.push({source, 0}); // push source node to minHeap
+    minHeap.push({source, 0}); // push source node to minHeap FIX : 0, source
 
     while(!minHeap.empty()) {
         int u = minHeap.top().first;
@@ -74,12 +74,11 @@ void print_path(const vector<int>& v, int total) {
         error("Empty path");
         return;
     }
-    
-    cout << "Total weight : " << total << endl;
+
     for(size_t i = 0; i < path_length; ++i ){
         cout << v[i] << " ";
     }
-    cout << endl;
+    cout << "\nTotal cost is " << total << endl;
 }
 void error(string msg) {
     cout << "Error: " + msg << endl;
