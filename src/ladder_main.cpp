@@ -6,7 +6,7 @@ using namespace std;
 void test_edit_distance() {
     cout << "Testing edit_distance()..." << endl;
     
-    assert(edit_distance_within("apple", "apple", 0) == true);
+    assert(edit_distance_within("apple", "apple", 1) == true);
     assert(edit_distance_within("apple", "apples", 1) == true);
     assert(edit_distance_within("apple", "sapple", 1) == true);
     assert(edit_distance_within("apple", "appe", 1) == true);

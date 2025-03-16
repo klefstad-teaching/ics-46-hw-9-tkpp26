@@ -52,7 +52,7 @@ bool edit_distance_within(const std::string& str1, const std::string& str2, int 
 
     // Remaining either str1 or str2
     count += (len1 - i) + (len2 - j);
-    return count == d;
+    return count <= d; // at most d!
 }
 
 // Checks if it is one step away from the original word
