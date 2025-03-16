@@ -70,15 +70,11 @@ vector<int> extract_shortest_path(const vector<int>& distances, const vector<int
 // total indicates the total weight of the path
 void print_path(const vector<int>& v, int total) {
     size_t path_length = v.size();
-    if(path_length == 0) {
-        error("Empty path");
-        return;
-    }
 
     for(size_t i = 0; i < path_length; ++i ){
         cout << v[i] << " ";
     }
-    cout << "\nTotal cost is " << total << endl;
+    cout << "\nTotal cost is " << total << "\n";
 }
 void error(string msg) {
     cout << "Error: " + msg << endl;
