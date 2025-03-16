@@ -118,5 +118,5 @@ void print_word_ladder(const vector<string>& ladder) {
     cout << endl;
 }
 
-// void verify_word_ladder() {
-// }
+void verify_word_ladder() {
+}

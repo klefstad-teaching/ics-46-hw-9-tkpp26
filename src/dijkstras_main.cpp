@@ -50,6 +50,7 @@ void test_all() {
     assert(previous[3] == 2);
 }
 
+
 int main() {
     test_all();
 }

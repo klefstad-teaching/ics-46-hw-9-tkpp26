@@ -19,7 +19,38 @@ void test_generate_word_ladder() {
     print_word_ladder(ladder);
 }
 
+void test_load_words() {
+    cout << "Testing load_words()..." << endl;
+    set<string> word_list;
+    load_words(word_list, "src/words.txt");
+
+    assert(word_list.find("abandon") != word_list.end());
+    assert(word_list.find("abasement") != word_list.end());
+    assert(word_list.find("Aaron") != word_list.end());
+}
+
+void test_load_generate() {
+    cout << "Testing words.txt..." << endl;
+    set<string> word_list;
+    load_words(word_list, "src/words.txt");
+    vector<string> ladder = generate_word_ladder("awake", "sleep", word_list);
+    print_word_ladder(ladder);
+}
+
+void test_potential_infinite_loop() {
+    cout << "Testing potential infinite loop case..." << endl;
+    
+    set<string> word_list;
+    load_words(word_list, "src/words.txt"); 
+    vector<string> ladder = generate_word_ladder("abandon", "absorption", word_list);
+    print_word_ladder(ladder);
+}
+
+
 int main() {
     test_edit_distance();
     test_generate_word_ladder();
+    test_load_words();
+    test_load_generate();
+    test_potential_infinite_loop();
 }
