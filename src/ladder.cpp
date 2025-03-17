@@ -41,48 +41,92 @@ void error(string word1, string word2, string msg) {
 // apple -> ample
 // apple -> sapple
 // apples -> apple
+// appsle -> apple --- sle, le
 // apple -> aple
 // Idea -- Past leetcode question 
+// Initial attempt -- inifnite loop
+// bool edit_distance_within(const string& str1, const string& str2, int d) {
+//     int len1 = str1.length();
+//     int len2 = str2.length();
+//     int diffLen = len2 - len1;
+
+//     // Edge case
+//     if (abs(diffLen) > d){
+//         return false;
+//     }
+
+//     int count = 0;
+//     string s1 = str1;
+//     string s2 = str2;
+//     while (!s1.empty() && !s2.empty()) { 
+//         int len1 = s1.length();
+//         int len2 = s2.length();
+        
+//         if (s1[0] == s2[0]) {
+//             s1 = s1.substr(1); 
+//             s2 = s2.substr(1); 
+//         } else {
+//             count++;
+//             if (len1 < len2) {
+//                 s2 = s2.substr(1);
+//             }
+//             else if (len1 > len2) {
+//                 s1 = s1.substr(1);
+//             }
+//             else {
+//                 s1 = s1.substr(1);
+//                 s2 = s2.substr(1);
+//             }
+//         }
+//     }
+
+//     if(!s1.empty()) {
+//         count += s1.length();
+//     }
+//     else {
+//         count += s2.length();
+//     }
+
+//     return count <= d;  
+// }
+
+// apple -> apples --- _, s 
+// apple -> sapple --- apple, apple
+
+// apples -> apple -- s, _
+// sapple -> apple --- apple, apple
+
+// apple -> ample
+// appsle -> apple --- sle, le --- le, le
+// apple -> aple --- ple, le --- le, le
 bool edit_distance_within(const string& str1, const string& str2, int d) {
     int len1 = str1.length();
     int len2 = str2.length();
-    int diffLen = len2 - len1;
-
-    // Edge case
-    if (abs(diffLen) > d){
-        return false;
-    }
-
+    int i = 0;
+    int j = 0;
     int count = 0;
-    string s1 = str1;
-    string s2 = str2;
-    while (!s1.empty() && !s2.empty()) { 
-        if (s1[0] == s2[0]) {
-            s1 = s1.substr(1); 
-            s2 = s2.substr(1); 
-        } else {
+
+    while(i < len1 && j < len2) {
+        if(str1[i] == str2[j]) {
+            i++;
+            j++;
+        }
+        else{
             count++;
-            if (len1 < len2) {
-                s2 = s2.substr(1);
-            }
-            else if (len1 > len2) {
-                s1 = s1.substr(1);
-            }
+            if(len1 < len2)
+                j++; 
+            else if(len1 > len2)
+                i++;
             else {
-                s1 = s1.substr(1);
-                s2 = s2.substr(1);
+                i++;
+                j++;
             }
         }
     }
 
-    if(!s1.empty()) {
-        count += s1.length();
-    }
-    else {
-        count += s2.length();
-    }
-
-    return count <= d;  
+    count += len1 - i;
+    count += len2 - j;
+    return count <= d;
 }
 
 // Checks if it is one step away from the original word

@@ -50,8 +50,49 @@ void test_all() {
     assert(previous[3] == 2);
 }
 
+void test_weight_zero() {
+    cout << "Testing weight zeros..." << endl;
+
+    Graph G;
+    G.numVertices = 19; 
+    G.resize(19);
+
+    /** 
+    Graph structure:
+
+    0 --(0)-- 5 --(0)-- 3 --(0)-- 18 --(0)-- 10 --(0)-- 2
+                     |
+                     |-(0)-- 12 --(0)-- 10  
+
+    Shortest path from 0:
+    5: 0 (0,5)
+    3: 0 (0,5,3)
+    18: 0 (0,5,3,12)
+    10: 0 (0,5,3,12,10)
+    2:  0 (0,5,3,12,10,2) 
+
+    **/
+
+    vector<int> previous(G.numVertices, -1);
+
+    G[0].push_back(Edge(0, 5, 0));
+    G[5].push_back(Edge(5, 3, 0));
+    G[3].push_back(Edge(3, 18, 0));
+    G[3].push_back(Edge(3, 12, 0));
+    G[12].push_back(Edge(12, 10, 0));
+    G[18].push_back(Edge(18, 10, 0));
+    G[10].push_back(Edge(10, 2, 0));
+
+    vector<int> distances = dijkstra_shortest_path(G, 0, previous);
+    int dest = 2;
+    vector<int> shortest_path = extract_shortest_path(distances, previous, dest);
+    cout << "Path from 0 to " << dest << "..." << endl;
+    print_path(shortest_path, distances[dest]); // expected_path : 0, 5, 3, 12, 10, 2
+}
+
 
 int main() {
     test_all();
+    test_weight_zero();
 }
 
