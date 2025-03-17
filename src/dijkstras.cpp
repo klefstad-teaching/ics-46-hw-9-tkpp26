@@ -4,40 +4,6 @@
 #include <stack>
 using namespace std;
 
-// HW9 pseudocode s
-// vector<int> dijkstra_shortest_path(const Graph& G, int source, vector<int>& previous) {
-//     int n = G.numVertices;
-//     vector<int> distance(n, INF);
-//     vector<bool> visited(n, false);
-    
-//     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-//     pq.push({0, source});
-//     distance[source] = 0;
-    
-//     while (!pq.empty()) {
-//         int u = pq.top().second;
-//         pq.pop();
-        
-//         if(visited[u])
-//             continue;
-//         else
-//             visited[u] = true;
-        
-//         for (Edge edge : G[u]) {
-//             int v = edge.dst;
-//             int weight = edge.weight;
-            
-//             if (distance[u] + weight < distance[v]) {
-//                 distance[v] = distance[u] + weight;
-//                 previous[v] = u;
-//                 pq.push({distance[v], v});
-//             }
-//         }
-//     }
-    
-//     return distance;
-// }
-
 // Source : https://www.geeksforgeeks.org/priority-queue-in-cpp-stl/#
 vector<int> dijkstra_shortest_path(const Graph& G, int source, vector<int>& previous) {
     int numV = G.numVertices;
@@ -65,7 +31,7 @@ vector<int> dijkstra_shortest_path(const Graph& G, int source, vector<int>& prev
             // Update shortest path to v from source
             // Update the previous node 
             // THINK : why is !visited[v] necessary?
-            if(!visited[v] && distances[u] + weight < distances[v]) {
+            if(distances[u] + weight < distances[v]) {
                 distances[v] = distances[u] + weight;
                 previous[v] = u;
                 minHeap.push({v, distances[v]}); 
