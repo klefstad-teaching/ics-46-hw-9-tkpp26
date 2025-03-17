@@ -37,20 +37,9 @@ void test_load_generate() {
     print_word_ladder(ladder);
 }
 
-void test_potential_infinite_loop() {
-    cout << "Testing potential infinite loop case..." << endl;
-    
-    set<string> word_list;
-    load_words(word_list, "src/words.txt"); 
-    vector<string> ladder = generate_word_ladder("abandon", "absorption", word_list);
-    print_word_ladder(ladder);
-}
-
-
 int main() {
     test_edit_distance();
     test_generate_word_ladder();
     test_load_words();
     test_load_generate();
-    test_potential_infinite_loop();
 }

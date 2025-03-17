@@ -11,48 +11,78 @@ void error(string word1, string word2, string msg) {
     cout << "Error: " << word1 << " " << word2 << " " << msg << endl;
 }
 
-// Checks if words differ by an insertion or deltion
-bool edit_distance_within(const std::string& str1, const std::string& str2, int d) {
-    // Check if it differs by one letter
+
+// Source : https://www.geeksforgeeks.org/introduction-to-levenshtein-distance/
+
+// Recursive -- resulted in infinite loop
+// int levenshteinDistances(const string& str1, const string& str2, int m, int n) {
+//     // Base cases
+//     if (m == 0)
+//         return n; 
+//     if (n == 0)
+//         return m; 
+
+//     // If matches, continue
+//     if (str1[m - 1] == str2[n - 1]) {
+//         return levenshteinDistances(str1, str2, m - 1, n - 1);
+//     }
+
+//     return 1 + min(
+//         levenshteinDistances(str1, str2, m, n - 1),    
+//         min(
+//             levenshteinDistances(str1, str2, m - 1, n), 
+//             levenshteinDistances(str1, str2, m - 1, n - 1)
+//         )
+//     );
+// }
+
+// Iterative
+// apple -> apples
+// apple -> ample
+// apple -> sapple
+// apples -> apple
+// apple -> aple
+// Idea -- Past leetcode question 
+bool edit_distance_within(const string& str1, const string& str2, int d) {
     int len1 = str1.length();
     int len2 = str2.length();
     int diffLen = len2 - len1;
+
+    // Edge case
     if (abs(diffLen) > d){
         return false;
     }
 
     int count = 0;
-    int i = 0;
-    int j = 0;
-
-    while (i < len1 && j < len2) {
-        // Matching characters
-        if (str1[i] == str2[j]) {
-            i++;
-            j++;
-        }
-        else {
+    string s1 = str1;
+    string s2 = str2;
+    while (!s1.empty() && !s2.empty()) { 
+        if (s1[0] == s2[0]) {
+            s1 = s1.substr(1); 
+            s2 = s2.substr(1); 
+        } else {
             count++;
-            // insert
-            if (len1 < len2)     
-                j++;
-            // deletion
-            else if (len1 > len2)
-                i++;
-            else {
-                i++;
-                j++;
+            if (len1 < len2) {
+                s2 = s2.substr(1);
             }
-
-            if (count > d)
-                return false;
+            else if (len1 > len2) {
+                s1 = s1.substr(1);
+            }
+            else {
+                s1 = s1.substr(1);
+                s2 = s2.substr(1);
+            }
         }
-        
     }
 
-    // Remaining either str1 or str2
-    count += (len1 - i) + (len2 - j);
-    return count <= d; // at most d!
+    if(!s1.empty()) {
+        count += s1.length();
+    }
+    else {
+        count += s2.length();
+    }
+
+    return count <= d;  
 }
 
 // Checks if it is one step away from the original word
