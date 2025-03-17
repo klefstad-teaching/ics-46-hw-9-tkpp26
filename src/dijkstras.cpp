@@ -8,13 +8,13 @@ using namespace std;
 // Priority queue implementation (minHeap): https://www.geeksforgeeks.org/priority-queue-in-cpp-stl/#
 // Custom comparator : https://www.geeksforgeeks.org/custom-comparator-in-priority_queue-in-cpp-stl/
 
-struct Compare {
-    bool operator()(const pair<int, int>& a, const pair<int, int>& b) {
-        if (a.second == b.second) 
-            return a.first > b.first; 
-        return a.second > b.second;
-    }
-};
+// struct Compare {
+//     bool operator()(const pair<int, int>& a, const pair<int, int>& b) {
+//         if (a.second == b.second) 
+//             return a.first > b.first; 
+//         return a.second > b.second;
+//     }
+// };
 
 vector<int> dijkstra_shortest_path(const Graph& G, int source, vector<int>& previous) {
     int numV = G.numVertices;
@@ -23,7 +23,7 @@ vector<int> dijkstra_shortest_path(const Graph& G, int source, vector<int>& prev
     distances[source] = 0;
     previous[source] = -1; // acts as a stopping condition when calling extract_shortest_path or -1?
 
-    priority_queue<pair<int, int>, vector<pair<int, int>>, Compare> minHeap; // pair<vertex, weight>
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> minHeap; // pair<vertex, weight>
     minHeap.push({source, 0}); // push source node to minHeap
 
     while(!minHeap.empty()) {
