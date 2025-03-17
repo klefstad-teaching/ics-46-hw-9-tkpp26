@@ -99,6 +99,7 @@ void error(string word1, string word2, string msg) {
 // apple -> ample
 // appsle -> apple --- sle, le --- le, le
 // apple -> aple --- ple, le --- le, le
+// Tested for when d == 1, may be incorrect for other values of d
 bool edit_distance_within(const string& str1, const string& str2, int d) {
     int len1 = str1.length();
     int len2 = str2.length();
