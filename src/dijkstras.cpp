@@ -31,7 +31,7 @@ vector<int> dijkstra_shortest_path(const Graph& G, int source, vector<int>& prev
             // Update shortest path to v from source
             // Update the previous node 
             // THINK : why is !visited[v] necessary?
-            if(distances[u] + weight < distances[v]) {
+            if(distances[u] + weight < distances[v] || (distances[u] + weight == distances[v] && u < previous[v])) {
                 distances[v] = distances[u] + weight;
                 previous[v] = u;
                 minHeap.push({v, distances[v]}); 
